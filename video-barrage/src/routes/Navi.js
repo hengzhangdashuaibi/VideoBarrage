@@ -1,7 +1,7 @@
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { connect } from 'dva';
 import 'antd/dist/antd.css';
 import logo from '../assets/logo.svg';
 import '../styles/Navi.css'
@@ -10,7 +10,7 @@ import {  BrowserRouter, Route, Switch, NavLink } from 'react-router-dom';
 import User from '../components/User.js';
 
 /*actions*/
-import * as testActions from '../action/BaceAction';
+import * as testActions from '../models/BaceAction';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -35,7 +35,7 @@ export default class Navi extends Component {
         let params = {
             id: 23
         }
-        /*debugger*/
+        debugger
         this.props.postTest(params) //发送post请求
 
         let id = 23
