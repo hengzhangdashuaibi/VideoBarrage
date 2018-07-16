@@ -1,7 +1,7 @@
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { connect } from 'dva';
+import { connect } from 'react-redux';
 import 'antd/dist/antd.css';
 import logo from '../assets/logo.svg';
 import '../styles/Navi.css'
@@ -15,7 +15,7 @@ import * as testActions from '../action/BaceAction';
 const { Header, Content, Footer, Sider } = Layout;
 
 //让组件关联state和action
- @connect(
+@connect(
     state => state,
     dispatch => bindActionCreators({testActions}, dispatch)
  )
