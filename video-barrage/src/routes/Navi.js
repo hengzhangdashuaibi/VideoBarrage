@@ -1,13 +1,13 @@
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import React, { Component } from 'react';
 // import { bindActionCreators } from 'redux';
-import { connect } from 'dva';
+// import { connect } from 'dva';
 import 'antd/dist/antd.css';
 import logo from '../assets/logo.svg';
 import '../styles/Navi.css'
-import {  BrowserRouter, Route, Switch, NavLink } from 'react-router-dom';
+// import {  BrowserRouter, Route, Switch, NavLink } from 'dva/router';
 
-import User from '../components/User.js';
+// import User from '../components/User.js';
 
 /*actions*/
 // import * as testActions from '../models/BaceAction';
@@ -19,7 +19,7 @@ const { Header, Content, Footer, Sider } = Layout;
 //     // state => state,
 //     // dispatch => bindActionCreators({testActions}, dispatch)
 //  )
-export default class Navi extends Component {
+class Navi extends Component {
 
     constructor(props) {
         super(props);
@@ -58,17 +58,16 @@ export default class Navi extends Component {
                 >
 
                     <div className="logo" />
-                    <BrowserRouter>
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
                         <Menu.Item key="1">
                             <Icon type="user" />
 
-                                   <span className="nav-text"><NavLink  to="/user" >特别呜谢参与人员</NavLink ></span>
-                                    <Switch>
+                                   <span className="nav-text">特别呜谢参与人员</span>
+                                    {/*<Switch>
                                         <div>
                                             <Route exact path="/user" component={User} />
                                         </div>
-                                    </Switch>
+                                    </Switch>*/}
 
                         </Menu.Item>
                         <Menu.Item key="2">
@@ -80,7 +79,6 @@ export default class Navi extends Component {
                             <span className="nav-text">上传</span>
                         </Menu.Item>
                     </Menu>
-                    </BrowserRouter>
 
                 </Sider>
                 <Layout>
@@ -116,4 +114,4 @@ export default class Navi extends Component {
     }
 }
 
-// export default Navi;
+export default Navi;
