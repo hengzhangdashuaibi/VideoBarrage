@@ -1,6 +1,6 @@
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 import { connect } from 'dva';
 import 'antd/dist/antd.css';
 import logo from '../assets/logo.svg';
@@ -10,15 +10,15 @@ import {  BrowserRouter, Route, Switch, NavLink } from 'react-router-dom';
 import User from '../components/User.js';
 
 /*actions*/
-import * as testActions from '../models/BaceAction';
+// import * as testActions from '../models/BaceAction';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 //让组件关联state和action
-@connect(
-    state => state,
-    dispatch => bindActionCreators({testActions}, dispatch)
- )
+// @connect(
+//     // state => state,
+//     // dispatch => bindActionCreators({testActions}, dispatch)
+//  )
 export default class Navi extends Component {
 
     constructor(props) {
@@ -32,14 +32,14 @@ export default class Navi extends Component {
 
 
     componentWillMount() {
-        let params = {
-            id: 23
-        }
-        debugger
-        this.props.postTest(params) //发送post请求
+        // let params = {
+        //     id: 23
+        // }
+        // debugger
+        // this.props.postTest(params) //发送post请求
 
-        let id = 23
-        this.props.getTest(id) //发送get请求
+        // let id = 23
+        // this.props.getTest(id) //发送get请求
     }
 
     toggle = () => {
