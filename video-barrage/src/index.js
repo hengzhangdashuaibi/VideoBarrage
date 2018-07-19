@@ -1,7 +1,7 @@
 import  "babel-polyfill";
 import dva from 'dva';
 import React from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 // import { Provider } from 'react-redux';
 import './styles/index.css';
 // import App from './pages/App';
@@ -11,7 +11,7 @@ import createHistory from 'history/createHashHistory';
 import FastClick from 'fastclick';
 import createLoading from 'dva-loading';
 import models from './models';
-import router from './router';
+// import router from './router';
 // import './g2';
 // import registerServiceWorker from './registerServiceWorker';
 
