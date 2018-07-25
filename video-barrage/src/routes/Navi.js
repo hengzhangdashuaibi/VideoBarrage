@@ -1,7 +1,7 @@
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import React, { Component } from 'react';
 // import { bindActionCreators } from 'redux';
-// import { connect } from 'dva';
+import { connect } from 'dva';
 import 'antd/dist/antd.css';
 import logo from '../assets/logo.svg';
 import '../styles/Navi.css'
@@ -15,11 +15,11 @@ import '../styles/Navi.css'
 const { Header, Content, Footer, Sider } = Layout;
 
 //让组件关联state和action
-// @connect(
-//     // state => state,
+@connect(
+    state => state,
 //     // dispatch => bindActionCreators({testActions}, dispatch)
-//  )
-class Navi extends Component {
+ )
+class Navi extends React.PureComponent {
 
     constructor(props) {
         super(props);
@@ -28,6 +28,8 @@ class Navi extends Component {
             mode: 'inline',
         };
     }
+
+
 
 
 
