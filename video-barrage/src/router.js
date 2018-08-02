@@ -2,6 +2,7 @@ import React from 'react';
 import { Router, Route, Switch } from 'dva/router';
 // import dynamic from 'dva/dynamic';
 import Navi from './routes/Navi';
+import Login from './routes/Login'
 
 // const menuGlobal=[
 //     // {
@@ -46,7 +47,8 @@ function RouterConfig({ history, app }) {
 
            <div>
                 <Switch>
-                    <Route path="/" render={props => <Navi {...props} {...passProps} />}/>
+                    <Route path="/" render={props => <Login {...props} {...passProps} />}/>
+                    {/*<Route path="/" render={props => <Navi {...props} {...passProps} />}/>*/}
                 </Switch>
             </div>
         </Router>
