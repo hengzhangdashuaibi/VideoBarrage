@@ -78,7 +78,7 @@ class Login extends React.PureComponent{
                         <video id="v1"
                                autoPlay
                                muted="muted"
-                               controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
+                               // controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
                                loop
                                style={{width: '100%'}}
                         >
