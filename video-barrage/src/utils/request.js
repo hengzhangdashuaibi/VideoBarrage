@@ -2,7 +2,8 @@ import fetch from 'dva/fetch';
 import { message } from 'antd';
 import { routerRedux } from 'dva/router';
 import store from '../index';
-import { isLogin, getToken, getExpires } from '../common/PateoForm/utils/helper';
+import { isLogin, getToken, getExpires } from '../utils/helper';
+import axios from 'axios';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据',
@@ -23,19 +24,21 @@ const codeMessage = {
 };
 
 function checkStatus(response) {
+
+  debugger
   // 小于10分钟或者
   if (response.status === 401) {
-    const { dispatch } = store;
-    if (isLogin() && getExpires() < 1800 && getExpires() > 0) {
-      dispatch({ type: 'login/refresh' });
-    }
-    localStorage.clear();
-    sessionStorage.clear();
-    dispatch({ type: 'login/changeLogin' });
-    dispatch(routerRedux.push('/login'));
-    response.json().then(() => {
-      message.warning('登陆已失效，请重新登陆');
-    });
+    // const { dispatch } = store;
+    // if (isLogin() && getExpires() < 1800 && getExpires() > 0) {
+    //   dispatch({ type: 'login/refresh' });
+    // }
+    // localStorage.clear();
+    // sessionStorage.clear();
+    // dispatch({ type: 'login/changeLogin' });
+    // dispatch(routerRedux.push('/login'));
+    // response.json().then(() => {
+    //   message.warning('登陆已失效，请重新登陆');
+    // });
     return;
   }
   if (response.status >= 200 && response.status <= 300) {
@@ -60,21 +63,32 @@ export default function request(url, options) {
     };
     newOptions.body = JSON.stringify(newOptions.body);
   }
-  const ip = (url.indexOf('http') === 0) ? '' : window.g.url;
-  return fetch(`${ip}${url}`, newOptions)
-    .then(checkStatus)
-    .then((response) => {
-      if (response.status !== 300) {
-        if (newOptions.method === 'DELETE') {
-          message.success('删除成功');
-        }
-      }
-      const json = response.json();
-      if (response.status === 300) {
-        json.then((warningResponse) => {
-          message.warning(warningResponse.message);
-        });
-      }
-      return json;
-    });
+  debugger
+  // const ip = (url.indexOf('http') === 0) ? '' : window.g.url;
+    console.log(url);
+  // return fetch(`${ip}${url}`, newOptions)
+  //   .then(checkStatus)
+  //   .then((response) => {
+  //     if (response.status !== 300) {
+  //       if (newOptions.method === 'DELETE') {
+  //         message.success('删除成功');
+  //       }
+  //     }
+  //     const json = response.json();
+  //     if (response.status === 300) {
+  //       json.then((warningResponse) => {
+  //         message.warning(warningResponse.message);
+  //       });
+  //     }
+  //     return json;
+  //   });
+    if(newOptions.method === 'POST'){
+        return axios.post(url,newOptions)
+            .then(checkStatus).catch((err)=>{
+               debugger
+                console.error(err);
+            });
+
+    }
+
 }

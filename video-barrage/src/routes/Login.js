@@ -16,7 +16,9 @@ const UserList = ['I', '♡', 'U', '银' , '魂'];
 const colorList = ['#f5392f', '#7265e6', '#ffbf00', '#00a2ae', '#00a2ae'];
 
 @connect(
-    state => state,
+    state => ({
+        login: state.login,
+    })
 //     // dispatch => bindActionCreators({testActions}, dispatch)
 )
 @Form.create()
@@ -31,12 +33,24 @@ class Login extends React.PureComponent{
         };
     }
 
+    /*登录验证*/
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                console.log('Received values of form: ', values.username);
             }
+           debugger
+
+            this.props.dispatch({
+                type: 'login/AppLogin',
+                payload: { url: '/user/appLogin', username:values.username, password:values.password },
+                callback: (response) => {
+                    debugger
+                    console.log(response);
+                },
+            })
+
         });
     }
 
@@ -48,6 +62,10 @@ class Login extends React.PureComponent{
             color: index < colorList.length - 1 ? colorList[index + 1] : colorList[0],
         });
     }
+
+    gitHub = () => {
+        console.log("gitHub");
+    };
 
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -75,6 +93,7 @@ class Login extends React.PureComponent{
 
             <Content>
                     <div className="login">
+                        {/*视频背景*/}
                         <video id="v1"
                                autoPlay
                                muted="muted"
@@ -82,7 +101,9 @@ class Login extends React.PureComponent{
                                loop
                                style={{width: '100%'}}
                         >
-                            <source  src="http://videovideo.18shi.net/47167.mp4" type="video/mp4"/>
+
+                            <source  src="https://bpic.588ku.com/video_listen/588ku_preview/18/07/12/10/14/57/video5b46b9a1a6ff4.mp4" type="video/mp4"/>
+                            {/*<source  src="http://videovideo.18shi.net/47167.mp4" type="video/mp4"/>*/}
                             {/*<track label="English" kind="subtitles" srcLang="en" src="http://source.vtt" default />*/}
                         </video>
 
@@ -91,7 +112,7 @@ class Login extends React.PureComponent{
                         {/*</Player>*/}
                         <Form onSubmit={this.handleSubmit} className="login-form">
                             <FormItem>
-                                {getFieldDecorator('userName', {
+                                {getFieldDecorator('username', {
                                     rules: [{ required: true, message: 'Please input your username!' }],
                                 })(
                                     <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
@@ -116,6 +137,9 @@ class Login extends React.PureComponent{
                                     Log in
                                 </Button>
                                 Or <a href="">register now!</a>
+                                <p>
+                                    <Icon type="github" onClick={this.gitHub}/>(第三方登录)
+                                </p>
                             </FormItem>
                         </Form>
                     </div>
