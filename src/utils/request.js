@@ -1,4 +1,4 @@
-import fetch from 'dva/fetch';
+// import fetch from 'dva/fetch';
 import { message } from 'antd';
 import { routerRedux } from 'dva/router';
 import store from '../index';
@@ -25,7 +25,7 @@ const codeMessage = {
 
 function checkStatus(response) {
 
-  debugger
+  // debugger
   // 小于10分钟或者
   if (response.status === 401) {
     // const { dispatch } = store;
@@ -44,10 +44,42 @@ function checkStatus(response) {
   if (response.status >= 200 && response.status <= 300) {
     return response;
   }
+
+  if (response.status == 302) {
+    console.log('跳转其他页面');
+  }
   const error = new Error(codeMessage[response.status] || response.statusText);
   error.name = response.status;
   error.response = response;
   throw error;
+}
+
+async function fetch(url, opts) {
+  const { method, body = {}, data = {}, ...restOpts } = opts;
+  const requestData = { ...body, ...data };
+  switch (method.toLocaleLowerCase()) {
+    case 'get':
+      return axios.get(url, {
+        params: requestData,
+        ...restOpts,
+      });
+    case 'post':
+      return axios.post(url, requestData, restOpts);
+    case 'put':
+      return axios.put(url, requestData, restOpts);
+    case 'patch':
+      return axios.patch(url, requestData, restOpts);
+    case 'delete':
+      return axios.delete(url, {
+        data: requestData,      
+        ...restOpts,    
+      });
+    default:
+      return axios({
+        opts,
+        url,
+      });
+  }
 }
 
 export default function request(url, options) {
@@ -63,9 +95,38 @@ export default function request(url, options) {
     };
     newOptions.body = JSON.stringify(newOptions.body);
   }
-  debugger
+
+  return fetch(url, newOptions)
+    .then(checkStatus)
+    .catch(err => {
+      console.log(err);
+      const { response = {} } = err;
+
+      let { status } = response;
+      status = Number(status);
+      if (status === 401) {
+        window.alert('');
+      }
+      if (status === 403) {
+        window.alert('403');
+        // return;
+
+      }
+
+      if (status <= 504 && status >= 500) {
+        window.alert('504');
+      }
+
+      if (status >= 404 && status < 422) {
+        window.alert('404')
+      }
+
+      return Promise.resolve(response);
+    })
+  // debugger
   // const ip = (url.indexOf('http') === 0) ? '' : window.g.url;
-    console.log(url);
+  //   console.log(url);
+  
   // return fetch(`${ip}${url}`, newOptions)
   //   .then(checkStatus)
   //   .then((response) => {
@@ -82,13 +143,13 @@ export default function request(url, options) {
   //     }
   //     return json;
   //   });
-    if(newOptions.method === 'POST'){
-        return axios.post(url,newOptions)
-            .then(checkStatus).catch((err)=>{
-               debugger
-                console.error(err);
-            });
+    // if(newOptions.method === 'POST'){
+    //     return axios.post(url,newOptions)
+    //         .then(checkStatus).catch((err)=>{
+    //            debugger
+    //             console.error(err);
+    //         });
 
-    }
+    // }
 
 }

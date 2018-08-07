@@ -5,11 +5,9 @@ import { isRemember } from '../utils/helper';
 
 //用户登录
 export async function AppLogin(params) {
-    const { url, ...paramsOpt } = params;
-    return request(url, {
+    //  const { url, ...paramsOpt } = params;
+    return request('/api/user/appLogin', {
         method: 'POST',
-        body: {
-            ...paramsOpt,
-        },
+        body: params,
     });
 }

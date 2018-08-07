@@ -19,28 +19,8 @@ export default {
     },
 
     effects: {
-       *AppLogin({ payload, callback }, { call, put }){
-           // yield put({
-           //     type: 'changeSubmitting',
-           //     payload: true,
-           // });
-           const response = yield call(AppLogin, payload);
-           // yield put({
-           //     type: 'changeLoginStatus',
-           //     payload: response,
-           // });
-           if (callback) callback(response);
-           // yield put({
-           //     type: 'changeSubmitting',
-           //     payload: false,
-           // });
-           // if (response.msg === 'CredentialsExpiredException') {
-           //     const { dispatch } = store;
-           //     dispatch(routerRedux.push('/forgetPwd'));
-           // }
-           // if (response.msg === 'AccountExpiredException') {
-           //     if (callback) callback('noActive');
-           // }
+       *AppLogin({ payload }, { call, put }){
+           return yield call(AppLogin, payload);
        },
     },
 

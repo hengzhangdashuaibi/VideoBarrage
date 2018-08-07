@@ -40,15 +40,15 @@ class Login extends React.PureComponent{
             if (!err) {
                 console.log('Received values of form: ', values.username);
             }
-           debugger
 
             this.props.dispatch({
                 type: 'login/AppLogin',
-                payload: { url: '/user/appLogin', username:values.username, password:values.password },
-                callback: (response) => {
-                    debugger
-                    console.log(response);
+                payload: { 
+                    username:values.username, 
+                    password:values.password 
                 },
+            }).then(resp => {
+                console.log(resp);
             })
 
         });
