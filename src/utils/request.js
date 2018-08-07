@@ -55,23 +55,23 @@ function checkStatus(response) {
 }
 
 async function fetch(url, opts) {
-  const { method, body = {}, data = {}, ...restOpts } = opts;
-  const requestData = { ...body, ...data };
+  const { method, body = {}, ...restOpts } = opts;
+  // const requestData = { ...body, ...data };
   switch (method.toLocaleLowerCase()) {
     case 'get':
       return axios.get(url, {
-        params: requestData,
+        params: body,
         ...restOpts,
       });
     case 'post':
-      return axios.post(url, requestData, restOpts);
+      return axios.post(url, body, restOpts);
     case 'put':
-      return axios.put(url, requestData, restOpts);
+      return axios.put(url, body, restOpts);
     case 'patch':
-      return axios.patch(url, requestData, restOpts);
+      return axios.patch(url, body, restOpts);
     case 'delete':
       return axios.delete(url, {
-        data: requestData,      
+        data: body,      
         ...restOpts,    
       });
     default:
@@ -104,13 +104,21 @@ export default function request(url, options) {
 
       let { status } = response;
       status = Number(status);
+      // 401 用户未登录
       if (status === 401) {
-        window.alert('');
+        // window.alert('');
       }
-      if (status === 403) {
-        window.alert('403');
-        // return;
 
+      // 403 用户无权限
+      if (status === 403) {
+        // window.alert('403');
+        // const { body } = response;
+        const { data: { code = 0, redirect } = {} } = response;
+        if (code === 301 && redirect) {
+          window.location.href = redirect;
+          // 页面已经跳转，不需要继续了
+          return;
+        }
       }
 
       if (status <= 504 && status >= 500) {
