@@ -87,14 +87,6 @@ export default function request(url, options) {
   if (isLogin() && url.indexOf('http') !== 0) {
     newOptions.headers = { Authorization: `bearer ${getToken()}` };
   }
-  if (newOptions.method === 'POST' || newOptions.method === 'PUT') {
-    newOptions.headers = {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      ...newOptions.headers,
-    };
-    newOptions.body = JSON.stringify(newOptions.body);
-  }
 
   return fetch(url, newOptions)
     .then(checkStatus)
