@@ -32,7 +32,7 @@
     "react-app-rewired": "^1.5.2"
   },
   "proxy": {
-    "/api": {
+    "/": {
       "target": "http://localhost:8085/",
       "changeOrigin": true,
       "secure": false
