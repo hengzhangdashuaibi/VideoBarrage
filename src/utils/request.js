@@ -41,6 +41,7 @@ function checkStatus(response) {
     // });
     return;
   }
+  debugger
   if (response.status >= 200 && response.status <= 300) {
     return response;
   }
@@ -84,12 +85,43 @@ async function fetch(url, opts) {
 
 export default function request(url, options) {
   const newOptions = { ...options };
-  if (isLogin() && url.indexOf('http') !== 0) {
-    newOptions.headers = { Authorization: `bearer ${getToken()}` };
-  }
+    // debugger
+    // if (newOptions.method === 'POST' || newOptions.method === 'PUT') {
+    //     newOptions.headers = {
+    //         Accept: 'application/json',
+    //         'Content-Type': 'application/json',
+    //         ...newOptions.headers,
+    //     };
+    //     newOptions.body = JSON.stringify(newOptions.body);
+    // }
 
+  // if (isLogin() && url.indexOf('http') !== 0) {
+  //   newOptions.headers = { Authorization: `bearer ${getToken()}` };
+  // }
+// debugger
   return fetch(url, newOptions)
     .then(checkStatus)
+      .then((response) => {
+          if (response.status !== 300) {
+              if (newOptions.method === 'DELETE') {
+                  message.success('删除成功');
+              }
+          }
+          debugger
+          // console.log(JSON.stringify(response.data));
+          // var data = JSON.parse(JSON.stringify(response.data));
+          if(response.data.code===301){
+              window.location.href = response.data.redirect;
+          }
+
+          // const json = response.json();
+          if (response.status === 300) {
+              response.then((warningResponse) => {
+                  message.warning(warningResponse.message);
+              });
+          }
+          return response;
+      })
     .catch(err => {
       console.log(err);
       const { response = {} } = err;
@@ -100,7 +132,7 @@ export default function request(url, options) {
       if (status === 401) {
         // window.alert('');
       }
-
+      debugger
       // 403 用户无权限
       if (status === 403) {
         // window.alert('403');
@@ -123,33 +155,5 @@ export default function request(url, options) {
 
       return Promise.resolve(response);
     })
-  // debugger
-  // const ip = (url.indexOf('http') === 0) ? '' : window.g.url;
-  //   console.log(url);
-  
-  // return fetch(`${ip}${url}`, newOptions)
-  //   .then(checkStatus)
-  //   .then((response) => {
-  //     if (response.status !== 300) {
-  //       if (newOptions.method === 'DELETE') {
-  //         message.success('删除成功');
-  //       }
-  //     }
-  //     const json = response.json();
-  //     if (response.status === 300) {
-  //       json.then((warningResponse) => {
-  //         message.warning(warningResponse.message);
-  //       });
-  //     }
-  //     return json;
-  //   });
-    // if(newOptions.method === 'POST'){
-    //     return axios.post(url,newOptions)
-    //         .then(checkStatus).catch((err)=>{
-    //            debugger
-    //             console.error(err);
-    //         });
-
-    // }
 
 }

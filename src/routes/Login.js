@@ -47,9 +47,22 @@ class Login extends React.PureComponent{
                     username:values.username, 
                     password:values.password 
                 },
-            }).then(resp => {
-                console.log(resp);
+                callback: (data)=>{
+                    debugger
+                    console.log(data.data);
+                }
             })
+            //     .then(resp => {
+            //     console.log(resp.data);
+            //
+            //    // var json=JSON.parse(resp.data);
+            //    //  console.log(resp.data.code);
+            //    //  debugger
+            //    //  if(resp.data.code==='301'){
+            //    //      //redirect
+            //    //      window.location.href=resp.data.redirect;
+            //    //  }
+            // })
 
         });
     }

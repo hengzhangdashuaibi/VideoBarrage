@@ -19,8 +19,10 @@ export default {
     },
 
     effects: {
-       *AppLogin({ payload }, { call, put }){
-           return yield call(AppLogin, payload);
+       *AppLogin({ payload, callback }, { call, put }){
+           // return yield call(AppLogin, payload);
+           const response =yield call(AppLogin, payload);
+           if (callback) callback(response);
        },
     },
 
