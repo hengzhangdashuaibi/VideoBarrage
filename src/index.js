@@ -1,19 +1,12 @@
 import  "babel-polyfill";
 import dva from 'dva';
 import React from 'react';
-// import ReactDOM from 'react-dom';
-// import { Provider } from 'react-redux';
 import './styles/index.css';
-// import App from './pages/App';
-// import Navi from './routes/Navi';
 import onError from './error';
 import createHistory from 'history/createHashHistory';
 import FastClick from 'fastclick';
 import createLoading from 'dva-loading';
 import models from './models';
-// import router from './router';
-// import './g2';
-// import registerServiceWorker from './registerServiceWorker';
 
 
 // 1. Initialize and app error
@@ -39,7 +32,3 @@ app.start('#root');
 FastClick.attach(document.body);
 
 export default app._store;
-
-//挂载页面
-// ReactDOM.render(<Navi />,document.getElementById('root'));
-// registerServiceWorker();

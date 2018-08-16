@@ -4,6 +4,7 @@ import { connect } from 'dva';
 import 'antd/dist/antd.css';
 import logo from '../assets/logo.svg';
 import '../styles/Login.css';
+import { routerRedux, Link } from 'dva/router';
 // import { Player } from 'video-react';
 import { DefaultPlayer as Video } from 'react-html5video';
 import 'react-html5video/dist/styles.css';
@@ -22,7 +23,7 @@ const colorList = ['#f5392f', '#7265e6', '#ffbf00', '#00a2ae', '#00a2ae'];
 //     // dispatch => bindActionCreators({testActions}, dispatch)
 )
 @Form.create()
-class Login extends React.PureComponent{
+export default class Login extends React.PureComponent{
     //登录页面
 
     constructor(props) {
@@ -50,6 +51,15 @@ class Login extends React.PureComponent{
                 callback: (data)=>{
                     debugger
                     console.log(data.data);
+                    if(data.data.status===200){
+                         //登录成功
+                        if(data.data.data){
+                            //为true跳转页面
+                            this.props.dispatch(routerRedux.push({
+                                pathname: "/home"
+                            }));
+                        }
+                    }
                 }
             })
             //     .then(resp => {
@@ -166,4 +176,4 @@ class Login extends React.PureComponent{
 
 }
 
-export default Login;
+// export default Login;

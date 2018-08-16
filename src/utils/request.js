@@ -111,7 +111,13 @@ export default function request(url, options) {
           // console.log(JSON.stringify(response.data));
           // var data = JSON.parse(JSON.stringify(response.data));
           if(response.data.code===301){
-              window.location.href = response.data.redirect;
+              // window.location.href = response.data.redirect;
+              window.open('response.data.redirect');//打开新页面
+          }
+
+          //权限不足
+          if(response.data.status==='error'){
+              window.alert('权限不足，请联系管理员!');
           }
 
           // const json = response.json();

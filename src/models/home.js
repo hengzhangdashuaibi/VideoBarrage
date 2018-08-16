@@ -1,6 +1,6 @@
 export default {
 
-    namespace: 'Navi',
+    namespace: 'home',
 
     state: {
         name:'这是Navi的model'

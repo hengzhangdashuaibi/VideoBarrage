@@ -1,25 +1,17 @@
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import React, { Component } from 'react';
-// import { bindActionCreators } from 'redux';
 import { connect } from 'dva';
 import 'antd/dist/antd.css';
 import logo from '../assets/logo.svg';
 import '../styles/Navi.css'
-// import {  BrowserRouter, Route, Switch, NavLink } from 'dva/router';
-
-// import User from '../components/User.js';
-
-/*actions*/
-// import * as testActions from '../models/BaceAction';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 //让组件关联state和action
 @connect(
     state => state,
-//     // dispatch => bindActionCreators({testActions}, dispatch)
  )
-class Navi extends React.PureComponent {
+class home extends React.PureComponent {
 
     constructor(props) {
         super(props);
@@ -116,4 +108,4 @@ class Navi extends React.PureComponent {
     }
 }
 
-export default Navi;
+export default home;
